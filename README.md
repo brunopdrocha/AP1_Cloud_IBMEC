@@ -4,7 +4,7 @@ Esta API permite o gerenciamento de clientes e seus endereços, oferecendo funci
 
 ## Estrutura da API
 
-A API está estruturada em dois principais recursos: **Clientes** e **Endereços**. Todos os endpoints estão sob o prefixo `/api`.
+A API está estruturada em dois principais recursos: **Clientes** e **Endereços**. Todos os endpoints estão sob o prefixo `http://localhost:8080/api`.
 
 ## Endpoints
 
