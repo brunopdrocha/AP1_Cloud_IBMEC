@@ -40,7 +40,7 @@ Resposta:
 201 CREATED: Retorna o cliente criado.
 400 BAD REQUEST: Se CPF ou e-mail já existirem.
 
-4. Atualizar Cliente
+### 4. Atualizar Cliente
 Método: PUT
 Endpoint: /api/cliente/{cpf}
 Descrição: Atualiza os dados de um cliente existente pelo CPF.
