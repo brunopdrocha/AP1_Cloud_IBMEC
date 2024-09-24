@@ -10,12 +10,12 @@ A API está estruturada em dois principais recursos: **Clientes** e **Endereços
 
 ### Clientes
 
-#### 1. Listar Todos os Clientes
+### 1. Listar Todos os Clientes
 - **Método**: `GET`
 - **Endpoint**: `/api/cliente`
 - **Descrição**: Retorna uma lista de todos os clientes.
 
-#### 2. Buscar Cliente por CPF
+### 2. Buscar Cliente por CPF
 - **Método**: `GET`
 - **Endpoint**: `/api/cliente/{cpf}`
 - **Descrição**: Busca um cliente específico pelo CPF.
@@ -23,7 +23,7 @@ A API está estruturada em dois principais recursos: **Clientes** e **Endereços
   - **200 OK**: Retorna o cliente encontrado.
   - **404 NOT FOUND**: Se o cliente não for encontrado.
 
-#### 3. Adicionar Novo Cliente
+### 3. Adicionar Novo Cliente
 - **Método**: `POST`
 - **Endpoint**: `/api/cliente`
 - **Descrição**: Adiciona um novo cliente.
@@ -36,6 +36,7 @@ A API está estruturada em dois principais recursos: **Clientes** e **Endereços
     "dataNascimento": "1990-01-01",
     "telefone": "21999999999"
   }
+  
 Resposta:
 201 CREATED: Retorna o cliente criado.
 400 BAD REQUEST: Se CPF ou e-mail já existirem.
@@ -58,7 +59,7 @@ Respostas:
 204 NO CONTENT: Se removido com sucesso.
 404 NOT FOUND: Se o cliente não existir.
 
-# Endereços
+### Endereços
 ### 1. Listar Todos os Endereços
 - **Método**: GET
 - **Endpoint**: /api/endereco
@@ -73,7 +74,7 @@ Respostas:
 200 OK: Retorna o endereço encontrado.
 404 NOT FOUND: Se o endereço não for encontrado.
 
-# 3. Adicionar Novo Endereço
+### 3. Adicionar Novo Endereço
 - **Método**: POST
 - **Endpoint**: /api/endereco
 - **Descrição**: Adiciona um novo endereço.
@@ -91,7 +92,7 @@ Respostas:
 Resposta:
 201 CREATED: Retorna o endereço criado.
 
-# 4. Atualizar Endereço
+### 4. Atualizar Endereço
 - **Método**: PUT
 - **Endpoint**: /api/endereco/{cep}
 - **Descrição**: Atualiza um endereço existente pelo CEP.
@@ -101,7 +102,7 @@ Respostas:
 200 OK: Retorna o endereço atualizado.
 404 NOT FOUND: Se o endereço não for encontrado.
 
-# 5. Remover Endereço
+### 5. Remover Endereço
 - **Método**: DELETE
 - **Endpoint**: /api/endereco/{cep}
 - **Descrição**: Remove um endereço pelo CEP.
