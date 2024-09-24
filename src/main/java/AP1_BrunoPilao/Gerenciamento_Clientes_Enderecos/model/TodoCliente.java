@@ -3,9 +3,9 @@ package AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.model;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
+import org.hibernate.validator.constraints.br.CPF;
 
-
-
+//------------------Bibliotecas-----------------------------//
 @Data
 public class TodoCliente {
 
@@ -21,7 +21,7 @@ public class TodoCliente {
 
     // CPF - obrigatório, deve seguir o padrão de CPF e ser único
     @NotBlank(message = "CPF é obrigatório")
-    @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "CPF deve estar no formato XXX.XXX.XXX-XX")
+    @CPF(message = "CPF deve estar no formato XXX.XXX.XXX-XX")
     private String cpf;
 
     // Data de nascimento - deve ser uma data válida e garantir maioridade (18 anos)
