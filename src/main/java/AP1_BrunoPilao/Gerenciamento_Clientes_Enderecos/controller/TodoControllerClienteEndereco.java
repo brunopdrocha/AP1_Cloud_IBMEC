@@ -1,6 +1,7 @@
 package AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.model.TodoEndereco;
 public class TodoControllerClienteEndereco {
 
     // Listas estáticas para armazenar clientes e endereços
+    @Autowired
     private static List<TodoCliente> clientes = new ArrayList<>();
     private static List<TodoEndereco> enderecos = new ArrayList<>();
 
