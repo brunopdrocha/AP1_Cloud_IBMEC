@@ -36,4 +36,7 @@ public class TodoEndereco {
     @NotBlank(message = "CEP é obrigatório")
     @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato XXXXX-XXX")
     private String cep;
+
+    // CPF do Cliente associado ao endereço (opcional no momento da criação)
+    private String cpfCliente;
 }

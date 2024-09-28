@@ -85,58 +85,86 @@ public class TodoControllerClienteEndereco {
     }
 
     // --------------------- Métodos para Endereço ---------------------
+ // POST - Adiciona um novo endereço para um cliente específico
+ @PostMapping("/cliente/{cpf}/endereco")
+ public ResponseEntity<TodoEndereco> postEndereco(@PathVariable("cpf") String cpf, @Valid @RequestBody TodoEndereco novoEndereco) {
+     TodoCliente cliente = null;
+     
+     // Verifica se o cliente existe pelo CPF
+     for (TodoCliente c : clientes) {
+         if (c.getCpf().equals(cpf)) {
+             cliente = c;
+             break;
+         }
+     }
 
-    // GET - Retorna todos os endereços
-    @GetMapping("/endereco")
-    public ResponseEntity<List<TodoEndereco>> getTodosEnderecos() {
-        return new ResponseEntity<>(enderecos, HttpStatus.OK);
-    }
+     if (cliente == null) {
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Cliente não encontrado
+     }
 
-    // GET - Busca de endereço por CEP
-    @GetMapping("/endereco/{cep}")
-    public ResponseEntity<TodoEndereco> getEnderecoByCep(@PathVariable("cep") String cep) {
-        TodoEndereco response = null;
-        for (TodoEndereco endereco : enderecos) {
-            if (endereco.getCep().equals(cep)) {
-                response = endereco;
-                break;
-            }
-        }
+     // Associa o CPF ao endereço
+     novoEndereco.setCpfCliente(cpf); 
+     enderecos.add(novoEndereco);
 
-        if (response == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+     return new ResponseEntity<>(novoEndereco, HttpStatus.CREATED);
+ }
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+ // GET - Retorna todos os endereços de um cliente específico pelo CPF
+ @GetMapping("/cliente/{cpf}/enderecos")
+ public ResponseEntity<List<TodoEndereco>> getEnderecosPorCliente(@PathVariable("cpf") String cpf) {
+     List<TodoEndereco> enderecosDoCliente = new ArrayList<>();
 
-    // POST - Adiciona um novo endereço
-    @PostMapping("/endereco")
-    public ResponseEntity<TodoEndereco> postEndereco(@Valid @RequestBody TodoEndereco novoEndereco) {
-        enderecos.add(novoEndereco);
-        return new ResponseEntity<>(novoEndereco, HttpStatus.CREATED);
-    }
+     // Filtra endereços pelo CPF do cliente
+     for (TodoEndereco endereco : enderecos) {
+         if (endereco.getCpfCliente().equals(cpf)) {
+             enderecosDoCliente.add(endereco);
+         }
+     }
 
-    // PUT - Atualiza um endereço existente por CEP
-    @PutMapping("/endereco/{cep}")
-    public ResponseEntity<TodoEndereco> updateEndereco(@PathVariable("cep") String cep, @Valid @RequestBody TodoEndereco enderecoAtualizado) {
-        for (TodoEndereco endereco : enderecos) {
-            if (endereco.getCep().equals(cep)) {
-                enderecos.remove(endereco);
-                enderecos.add(enderecoAtualizado);
-                return new ResponseEntity<>(enderecoAtualizado, HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+     if (enderecosDoCliente.isEmpty()) {
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+     }
 
-    // DELETE - Remove um endereço por CEP
-    @DeleteMapping("/endereco/{cep}")
-    public ResponseEntity<Void> deleteEndereco(@PathVariable("cep") String cep) {
-        boolean removed = enderecos.removeIf(endereco -> endereco.getCep().equals(cep));
-        if (removed) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+     return new ResponseEntity<>(enderecosDoCliente, HttpStatus.OK);
+ }
+
+ // PUT - Atualiza um endereço existente por CEP para um cliente específico
+ @PutMapping("/cliente/{cpf}/endereco/{cep}")
+ public ResponseEntity<TodoEndereco> updateEndereco(@PathVariable("cpf") String cpf, @PathVariable("cep") String cep, @Valid @RequestBody TodoEndereco enderecoAtualizado) {
+     TodoCliente cliente = null;
+
+     // Verifica se o cliente existe pelo CPF
+     for (TodoCliente c : clientes) {
+         if (c.getCpf().equals(cpf)) {
+             cliente = c;
+             break;
+         }
+     }
+
+     if (cliente == null) {
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Cliente não encontrado
+     }
+
+     for (TodoEndereco endereco : enderecos) {
+         if (endereco.getCep().equals(cep) && endereco.getCpfCliente().equals(cpf)) {
+             enderecos.remove(endereco);
+             enderecoAtualizado.setCpfCliente(cpf);
+             enderecos.add(enderecoAtualizado);
+             return new ResponseEntity<>(enderecoAtualizado, HttpStatus.OK);
+         }
+     }
+
+     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+ }
+
+ // DELETE - Remove um endereço por CEP para um cliente específico
+ @DeleteMapping("/cliente/{cpf}/endereco/{cep}")
+ public ResponseEntity<Void> deleteEndereco(@PathVariable("cpf") String cpf, @PathVariable("cep") String cep) {
+     boolean removed = enderecos.removeIf(endereco -> endereco.getCep().equals(cep) && endereco.getCpfCliente().equals(cpf));
+     if (removed) {
+         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+     }
+     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+ }
+
 }
