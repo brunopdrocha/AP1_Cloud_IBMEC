@@ -11,6 +11,7 @@ import AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.model.TodoCliente;
 import AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.model.TodoEndereco;
 import AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.service.ErrorHandlingService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class TodoControllerClienteEndereco {
@@ -23,7 +24,7 @@ public class TodoControllerClienteEndereco {
     private static List<TodoCliente> clientes = new ArrayList<>();
     private static List<TodoEndereco> enderecos = new ArrayList<>();
 
-    // --------------------- Métodos para Cliente ---------------------
+    // --------------------- Métodos para Cliente --------------------- 
 
     // GET - Retorna todos os clientes
     @GetMapping("/cliente")
@@ -32,8 +33,8 @@ public class TodoControllerClienteEndereco {
     }
 
     // GET - Busca de cliente por CPF
-    @GetMapping("/cliente/{cpf}")
-    public ResponseEntity<?> getClienteByCpf(@PathVariable("cpf") String cpf) {
+    @GetMapping("/cliente/buscar/{cpf}")
+    public ResponseEntity<?> buscarClientePorCpf(@PathVariable("cpf") String cpf) {
         for (TodoCliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return new ResponseEntity<>(cliente, HttpStatus.OK);
@@ -58,8 +59,8 @@ public class TodoControllerClienteEndereco {
     }
 
     // PUT - Atualiza um cliente existente por CPF
-    @PutMapping("/cliente/{cpf}")
-    public ResponseEntity<?> updateCliente(@PathVariable("cpf") String cpf, @Valid @RequestBody TodoCliente clienteAtualizado) {
+    @PutMapping("/cliente/atualizar/{cpf}")
+    public ResponseEntity<?> atualizarClientePorCpf(@PathVariable("cpf") String cpf, @Valid @RequestBody TodoCliente clienteAtualizado) {
         for (TodoCliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 clientes.remove(cliente);
@@ -80,7 +81,7 @@ public class TodoControllerClienteEndereco {
         return errorHandlingService.createErrorResponse("Cliente com CPF " + cpf + " não encontrado", HttpStatus.NOT_FOUND);
     }
 
-    // --------------------- Métodos para Endereço ---------------------
+    // --------------------- Métodos para Endereço --------------------- 
 
     // POST - Adiciona um novo endereço para um cliente específico
     @PostMapping("/cliente/{cpf}/endereco")
