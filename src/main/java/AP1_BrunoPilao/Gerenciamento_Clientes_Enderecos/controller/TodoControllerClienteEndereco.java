@@ -14,8 +14,9 @@ import AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.service.ErrorHandlingServ
 @RestController
 @RequestMapping("/api")
 public class TodoControllerClienteEndereco {
-
+    
     @Autowired
+    // Classe para tratamento de Erro
     private ErrorHandlingService errorHandlingService;
 
     // Listas estáticas para armazenar clientes e endereços
@@ -95,7 +96,7 @@ public class TodoControllerClienteEndereco {
     }
 
     // GET - Retorna todos os endereços de um cliente específico pelo CPF
-    @GetMapping("/cliente/{cpf}/enderecos")
+    @GetMapping("/cliente/{cpf}/endereco")
     public ResponseEntity<?> getEnderecosPorCliente(@PathVariable("cpf") String cpf) {
         List<TodoEndereco> enderecosDoCliente = new ArrayList<>();
         for (TodoEndereco endereco : enderecos) {
