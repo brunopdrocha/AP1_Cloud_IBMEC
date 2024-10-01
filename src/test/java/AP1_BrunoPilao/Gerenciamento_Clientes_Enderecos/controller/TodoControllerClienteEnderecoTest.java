@@ -21,9 +21,6 @@ import AP1_BrunoPilao.Gerenciamento_Clientes_Enderecos.service.ErrorHandlingServ
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.when;
-
 @AutoConfigureMockMvc
 @WebMvcTest(controllers = TodoControllerClienteEndereco.class)
 public class TodoControllerClienteEnderecoTest {
